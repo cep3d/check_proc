@@ -7,9 +7,10 @@ Other Linker Flags：-lcurl
 Other Linker Flags: -lm -lz -lmysqlclient
 
 ## Search Paths
-Header Search Paths: /usr/local/include/mariadb/
+Header Search Paths: /usr/local/include/mariadb
 
-Library Search Paths: /usr/local/lib/mariadb/
+Library Search Paths: /usr/local/lib/mariadb
+                      /usr/local/lib
 
 1. Install MariaDB
 ```
