@@ -7,10 +7,16 @@ Other Linker Flags：-lcurl
 Other Linker Flags: -lm -lz -lmysqlclient
 
 ## Search Paths
-Header Search Paths: /usr/local/include/mariadb
+Header Search Paths:
 
-Library Search Paths: /usr/local/lib/mariadb
-                      /usr/local/lib
+/usr/local/include/mariadb
+
+Library Search Paths:
+
+/usr/local/lib/mariadb
+
+/usr/local/lib
+
 
 1. Install MariaDB
 ```
@@ -18,7 +24,7 @@ $ brew install mariadb
 ```
 
 2. Install CMAKE
-cmakeがインストールされていない場合。
+(cmakeがインストールされていない場合。)
 ```
 $ brew install cmake
 ```
@@ -35,7 +41,7 @@ $ cmake mariadb-connector-c-3.0.3-src/ -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTAL
 (ダウンロードディレクトリと同じディレクトリでコンパイルしないこと)
 
 ```
-$ cmake —build . —config Release
+$ cmake —build . —config RelWithDebInfo
 
 $ make
 $ make install
