@@ -1,5 +1,7 @@
 # Xcode - using curl and mariadb
 
+Env: macOS 10.13.2
+
 ## Curl
 Other Linker Flags：-lcurl
 
