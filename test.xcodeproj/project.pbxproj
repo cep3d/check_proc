@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C90829C2013D6780017800E /* check_mysqld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C90829A2013D6780017800E /* check_mysqld.cpp */; };
-		5C90829F2013E3AA0017800E /* check_httpd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C90829D2013E3AA0017800E /* check_httpd.cpp */; };
+		822BE6AB2017405C00BFBA69 /* httpd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 822BE6A42017404A00BFBA69 /* httpd.cpp */; };
+		822BE6AC2017405F00BFBA69 /* mysqld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 822BE6A62017404A00BFBA69 /* mysqld.cpp */; };
+		822BE6AD2017406300BFBA69 /* str.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 822BE6A92017404A00BFBA69 /* str.cpp */; };
 		82FABAF52011CCE000568351 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82FABAF42011CCE000568351 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -25,12 +26,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5C90829A2013D6780017800E /* check_mysqld.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = check_mysqld.cpp; sourceTree = "<group>"; };
-		5C90829B2013D6780017800E /* check_mysqld.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = check_mysqld.hpp; sourceTree = "<group>"; };
-		5C90829D2013E3AA0017800E /* check_httpd.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = check_httpd.cpp; sourceTree = "<group>"; };
-		5C90829E2013E3AA0017800E /* check_httpd.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = check_httpd.hpp; sourceTree = "<group>"; };
+		822BE6A42017404A00BFBA69 /* httpd.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = httpd.cpp; sourceTree = "<group>"; };
+		822BE6A52017404A00BFBA69 /* httpd.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = httpd.hpp; sourceTree = "<group>"; };
+		822BE6A62017404A00BFBA69 /* mysqld.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mysqld.cpp; sourceTree = "<group>"; };
+		822BE6A72017404A00BFBA69 /* mysqld.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mysqld.hpp; sourceTree = "<group>"; };
+		822BE6A92017404A00BFBA69 /* str.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = str.cpp; sourceTree = "<group>"; };
+		822BE6AA2017404A00BFBA69 /* str.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = str.hpp; sourceTree = "<group>"; };
 		82FABAF12011CCE000568351 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
-		82FABAF42011CCE000568351 /* main.cpp */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; tabWidth = 2; };
+		82FABAF42011CCE000568351 /* main.cpp */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +47,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		822BE6A32017404A00BFBA69 /* check */ = {
+			isa = PBXGroup;
+			children = (
+				822BE6A42017404A00BFBA69 /* httpd.cpp */,
+				822BE6A52017404A00BFBA69 /* httpd.hpp */,
+				822BE6A62017404A00BFBA69 /* mysqld.cpp */,
+				822BE6A72017404A00BFBA69 /* mysqld.hpp */,
+			);
+			path = check;
+			sourceTree = "<group>";
+		};
+		822BE6A82017404A00BFBA69 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				822BE6A92017404A00BFBA69 /* str.cpp */,
+				822BE6AA2017404A00BFBA69 /* str.hpp */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
 		82FABAE82011CCE000568351 = {
 			isa = PBXGroup;
 			children = (
@@ -63,11 +86,9 @@
 		82FABAF32011CCE000568351 /* test */ = {
 			isa = PBXGroup;
 			children = (
+				822BE6A32017404A00BFBA69 /* check */,
+				822BE6A82017404A00BFBA69 /* utils */,
 				82FABAF42011CCE000568351 /* main.cpp */,
-				5C90829A2013D6780017800E /* check_mysqld.cpp */,
-				5C90829B2013D6780017800E /* check_mysqld.hpp */,
-				5C90829D2013E3AA0017800E /* check_httpd.cpp */,
-				5C90829E2013E3AA0017800E /* check_httpd.hpp */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -129,9 +150,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C90829C2013D6780017800E /* check_mysqld.cpp in Sources */,
-				5C90829F2013E3AA0017800E /* check_httpd.cpp in Sources */,
+				822BE6AB2017405C00BFBA69 /* httpd.cpp in Sources */,
+				822BE6AD2017406300BFBA69 /* str.cpp in Sources */,
 				82FABAF52011CCE000568351 /* main.cpp in Sources */,
+				822BE6AC2017405F00BFBA69 /* mysqld.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,7 +267,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CONFIGURATION_BUILD_DIR = "~/user_projects/__Git/check_proc/build";
+				CONFIGURATION_BUILD_DIR = "~/user_projects/__Git/github/check_proc/build";
 				HEADER_SEARCH_PATHS = /usr/local/include/mariadb;
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib/mariadb,
@@ -265,7 +287,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CONFIGURATION_BUILD_DIR = "~/user_projects/__Git/check_proc/build";
+				CONFIGURATION_BUILD_DIR = "~/user_projects/__Git/github/check_proc/build";
 				HEADER_SEARCH_PATHS = /usr/local/include/mariadb;
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib/mariadb,

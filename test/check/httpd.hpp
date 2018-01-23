@@ -12,10 +12,13 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <sstream>
 #include <curl/curl.h>
+#include "../utils/str.hpp"
 
-//static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp);
-int check_httpd(const char *url);
+namespace check
+{
+    //static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp);
+    int httpd(const char *url);
+}
 
 #endif /* check_httpd_hpp */

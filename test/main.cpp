@@ -7,16 +7,28 @@
 //
 
 #include <iostream>
-#include "check_mysqld.hpp"
-#include "check_httpd.hpp"
+#include <string>
+#include <stdio.h>
+#include <unistd.h>
+#include "check/mysqld.hpp"
+#include "check/httpd.hpp"
 
+int main(int argc, char *argv[]) {
 
-int main(int argc, const char * argv[]) {
-
-  int httpd, mysqld;
+  int result = 0, cmd;
   
-  mysqld = check_mysqld();
-  httpd = check_httpd("http://google.com");
+  while ((cmd = getopt(argc, argv, "a:h")) != -1) {
+    switch (cmd) {
+      case 'a':
+        result = check_mysqld();
+        result = check::httpd(optarg);
+        break;
+      case 'h':
+        std::cout << "Usage: ";
+        std::cout << "./test [-a] http://google.co.jp" << std::endl;
+        break;
+    }
+  }
   
-  return 0;
+  return result;
 }
