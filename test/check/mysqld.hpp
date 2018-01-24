@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <mysql.h>
 #include <regex>
 #include "../utils/str.hpp"
@@ -29,11 +30,14 @@ namespace check
     
     class mysqld
     {
+    private:
+        std::vector<std::string> search(std::string target, const char *pattern);
     protected:
         MYSQL *conn;
         MYSQL_RES *result = NULL;
     public:
         mysqld(mysql_options_t &conf);
+        virtual ~mysqld();
         
         int exec_query(const char *query);
         std::vector<std::string> fetch_rows();

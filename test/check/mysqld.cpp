@@ -20,6 +20,9 @@ namespace check
         }
     }
     
+    mysqld::~mysqld() {
+    }
+    
     void mysqld::release() {
         if (this->result != NULL) {
             mysql_free_result(this->result);
@@ -40,18 +43,36 @@ namespace check
     }
     
     std::vector<std::string> mysqld::fetch_rows() {
+        std::vector<std::string> arr;
+        if (this->result == NULL) {
+            throw std::runtime_error(mysql_error(this->conn));
+        }
         MYSQL_FIELD *field;
         MYSQL_ROW row;
-        std::vector<std::string> arr;
         int num_fields, i;
         num_fields = mysql_num_fields(this->result);
         field = mysql_fetch_field(this->result);
         while ((row = mysql_fetch_row(this->result)) != NULL) {
             for (i = 0; i < num_fields; ++i) {
-                std::string str1, str2;
-                str1 = "Field:" + std::string(field[i].name);
-                str2 = "Row: " + std::string(row[i]);
-                arr.push_back(str1 + str2);
+                //std::string str1, str2;
+                //str1 = "Field:" + std::string(field[i].name);
+                //str2 = "Row: " + std::string(row[i]);
+                arr.push_back(row[i]);
+            }
+        }
+        
+        return arr;
+    }
+    
+    std::vector<std::string> mysqld::search(std::string target, const char *pattern) {
+        std::vector<std::string> arr;
+        std::regex re(pattern);
+        std::smatch match;
+        
+        if (std::regex_search(target, match, re)) {
+            int i = 0;
+            for (i = 0; i < match.size(); ++i) {
+                arr.push_back(match[i]);
             }
         }
         
@@ -59,7 +80,25 @@ namespace check
     }
     
     void mysqld::background_thread(std::string str) {
+        std::smatch matches;
+        std::vector<std::string> srv_master_thread;
+        std::vector<std::string> srv_shutdown;
+        std::vector<std::string> srv_idle;
         
+        srv_master_thread = this->search(str, "srv_master_thread loops: (\\d+)");
+        srv_shutdown = this->search(str, "(\\d+) srv_shutdown");
+        srv_idle = this->search(str, "(\\d+) srv_idle");
+        
+        std::vector<std::string>::iterator itr;
+        for (itr = srv_master_thread.begin(); itr != srv_master_thread.end(); ++itr) {
+            std::cout << *itr << std::endl;
+        }
+        for (itr = srv_shutdown.begin(); itr != srv_shutdown.end(); ++itr) {
+            std::cout << *itr << std::endl;
+        }
+        for (itr = srv_idle.begin(); itr != srv_idle.end(); ++itr) {
+            std::cout << *itr << std::endl;
+        }
     }
     
     void mysqld::semaphores(std::string str) {
@@ -103,18 +142,25 @@ namespace check
 int check_mysqld() {
     std::cout << "Check mysqld proc" << std::endl;
     check::mysql_options_t options;
-    check::mysqld *mysqld = new check::mysqld(options);
-    
-    mysqld->exec_query("SHOW ENGINE INNODB STATUS");
-    
-    std::vector<std::string> arr;
-    arr = mysqld->fetch_rows();
-    std::vector<std::string>::iterator itr;
-    for (itr = arr.begin(); itr != arr.end(); ++itr) {
-        std::cout << *itr << std::endl;
+    try {
+        check::mysqld *mysqld = new check::mysqld(options);
+        
+        mysqld->exec_query("SHOW ENGINE INNODB STATUS");
+        
+        std::vector<std::string> arr;
+        arr = mysqld->fetch_rows();
+        mysqld->background_thread(arr.back());
+//        std::vector<std::string>::iterator itr;
+//        for (itr = arr.begin(); itr != arr.end(); ++itr) {
+//            std::cout << *itr << std::endl;
+//        }
+        
+        mysqld->release();
+    } catch(std::runtime_error &e) {
+        std::cerr << e.what() << std::endl;
+    } catch(std::exception &e) {
+        std::cerr << e.what() << std::endl;
     }
-    
-    mysqld->release();
     
     return 0;
 }
